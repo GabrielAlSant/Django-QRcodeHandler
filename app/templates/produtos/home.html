@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+      
+    <nav>
+        <div> 
+      <div class="top">
+        <a href="index.html"><h3>MUANP-Rede de Alimentos</h3></a>
+      </div>
+      <form method="post" action="{% url 'filtro_produtos' %}">
+        {% csrf_token %}
+         <input name="nome"></input>
+         <button>Pesquisar</button>
+      </form>
+         <ul>
+             <a href="sobre.html"><li>Sobre</li></a>
+             <a href="categorias.html"><li>Categorias</li></a>
+             <a href="contato.html"><li>Contato</li></a>
+             <a href="login.html"><li>Entrar</li></a>
+         </ul>
+        </div>
+     
+         </nav>
+
+
+
+<h2 class="titledest" style="margin-top: 50px;">Produtos Cadastrados</h2>
+
+<section class="cards">
+    {% for produto in produtos %}
+    <div class="cardprod">
+        <img src="{{produto.img}}">
+        <div class="nomeprod">{{produto.id}}, {{produto.nome}}</div>
+        <div class="precoprod">{{produto.preco}}</div>
+        <form method="post" action="{% url 'excluir_produto' produto.id %}">
+            {% csrf_token %}
+        <button class="botcomprar">Excluir</button>
+        </form>
+    </div>
+    {% endfor %}
+
+
+</section>
+
+<h2 class="titledest">Cadastre Seu Produto</h2>
+
+<form action="{% url 'listagem_produtos' %}" method="post">
+    {% csrf_token %}
+<div class="card" style="margin-top: 50px;">
+    <h4>Cadastro</h4>
+    <div>
+        <div>Nome</div>
+        <input type="text" name="nome">
+    </div>
+    <div>
+        <div>Preço</div>
+        <input type="text" name="preco">
+        <div>Imagem</div>
+        <input type="text" name="img">
+    </div>
+
+    <button>Logar</button>
+    <a href="cad.html" >Não tenho uma conta</a>
+</div>
+</form>
+
+    <footer>
+
+        <div class="colum">
+        <div class="par">Contatos</div>
+        <div class="item">(99) 9 9999-9999</div>
+        <div class="item">Cleber@gmail.com</div>
+        <div class="item">3441-2810</div>
+        </div>
+        
+        <div class="colum">
+          <div class="par">Serviços</div>
+          <div class="item">Entrega</div>
+          <div class="item">Devolução</div>
+          <div class="item">Atendimento</div>
+        </div>
+        
+        
+        <div class="colum">
+          <div class="par">Parcerias</div>
+          <div class="item">Translovato</div>
+          <div class="item">Mercúrio</div>
+          <div class="item">Jamef</div>
+        </div>
+        
+        </footer>
+    
+</body>
+<style>
+    :root {
+    --color1: #004400;
+    --color2:#095306;
+    --color3:#11610c;
+    --color4:#1a7012;
+    --color5:#237e18;
+   
+  }
+  
+  
+  
+  * {
+      margin: 0px;
+      padding: 0px;
+      font-family: 'Kanit', sans-serif;
+  }
+  
+  a{
+      color: var(--color);
+      display: block;
+    margin-top: 10px;
+  }
+  
+  nav {
+      background-color: var(--color1);
+      width: 100%;
+      color: white;
+      height: 120px;
+  }
+  
+  nav a{
+      text-decoration: none;
+  }
+  
+  nav div {
+      display: flex;
+      justify-content: center;
+  }
+  
+  nav img {
+      margin-top: 25px;
+  }
+  
+  nav ul {
+      display: flex;
+      justify-content: center;
+  }
+  
+  nav li {
+      list-style: none;
+      padding: 5px;
+      margin-top: 37px;
+  }
+  
+  nav h3 {
+      padding-left: 10px;
+      margin-top: 40px;
+  }
+  
+  
+  nav input {
+    margin-right: 100px;
+      margin-left: 100px;
+      border-radius: 50px;
+      padding: 2px;
+      margin-top: 35px;
+      width: 400px;
+      border: none;
+      height: 40px;
+      text-align: center;
+      margin-bottom: 5px;
+  }
+  nav button {
+
+    border: 2px solid var(--color1);
+    color: var(--color1);
+    background-color: white;
+    width: 150px;
+    display: block;
+    margin: auto;
+    border-radius: 50px;
+    padding: 5px;
+    font-weight: bolder;
+    transition: 300ms;
+  }
+
+  nav button:hover {
+
+border: 2px solid white ;
+color: white ;
+background-color: var(--color1);
+width: 150px;
+display: block;
+margin: auto;
+border-radius: 50px;
+padding: 5px;
+font-weight: bolder;
+transition: 300ms;
+}
+  
+  .imgbanner{
+      width: 100%;
+      height: 40vh;
+      margin-bottom: 50px;
+  }
+  
+  /*footer*/
+  
+  footer {
+      background-color: var(--color1);
+      width: 100%;
+      color: white;
+      display: flex;
+      justify-content: center;
+  
+  }
+  
+  footer .colum{
+      padding: 40px;
+  }
+  
+  footer .par{
+      margin-bottom: 20px !important;
+  }
+  
+  footer .item{
+      margin-bottom: 10px;
+  }
+  
+  
+  
+  
+  footer table {
+      margin: auto;
+  }
+  
+  footer table td{
+      width: 150px;
+      text-align: center;
+      padding: 5px;
+  }
+  
+  
+  @media (max-width:800px) {
+    
+  
+      .top {
+          display: flex !important;
+      }
+  
+      nav div {
+          display: inline;
+          justify-content: center;
+      }
+  
+      nav {
+          background-color: var(--color1);
+          width: 100%;
+          color: white;
+          height: 200px;
+        
+      }
+  
+      nav input {
+          border-radius: 50px;
+          padding: 2px;
+          margin:  15px auto auto auto;
+          display: block;
+          width: 300px;
+          border: none;
+          height: 40px;
+          text-align: center !important;
+      }
+  
+      nav li {
+          text-align: start;
+          margin-top: 10px;
+      }
+  
+      footer{
+          display: block;
+          background-color: var(--color1);
+          width: 100%;
+          color: white;
+          text-align: center;
+      }
+      footer .colum .item{
+          display: inline-block;
+          border: 1px solid white;
+          border-radius:50px;
+          padding: 10px;
+      }
+      footer div{
+          margin-bottom: -50px;
+      }
+  
+      footer .colum{
+          margin-bottom: -50px;
+      }
+  
+  }
+  
+  
+  
+  
+  .titledest{
+      text-align: center;
+      color: var(--color1);
+      text-decoration: underline 2px;
+      text-underline-offset: 8px;
+      margin-bottom: 50px;
+  }
+  
+  
+  
+  /* cardprods */
+  
+  .cards{
+      display: flex;
+      justify-content: center;
+      margin-bottom: 50px;
+  }
+  
+  .cardprods{ 
+      display: flex;
+      justify-content: center;
+  }
+  
+  .cardprod{
+      border: 2px solid var(--color1);
+      border-radius: 50px;
+      padding: 15px;
+      margin: 10px;
+      width: 200px;
+      height: 300px;
+      box-shadow: 10px 5px 5px var(--color5);
+  }
+  
+  
+  .cardprod img{
+      width: 190px;
+      display: block;
+      margin: auto;
+      height: 200px;
+  }
+  
+  .cardprod .nomeprod {
+      text-align: start;
+      margin-left: 10px;
+  }
+  
+  
+  .cardprod .precoprod{
+      text-align: start;
+      margin-left: 10px;
+      margin-bottom: 10px;
+  }
+  
+  
+  .cardprod .botcomprar{
+      border: 2px solid var(--color1);
+      color: var(--color1);
+      background-color: white;
+      width: 180px;
+      display: block;
+      margin: auto;
+      border-radius: 50px;
+      padding: 5px;
+      font-weight: bolder;
+      transition: 300ms;
+  }
+  
+  .cardprod .botcomprar:hover{
+      transition: 300ms;
+      border: 2px solid var(--color1);
+      color: white;
+      background-color: var(--color1);
+      width: 190px;
+      display: block;
+      margin: auto;
+      border-radius: 50px;
+      padding: 8px;
+      font-weight: bolder;
+  }
+  
+  
+  @media (max-width:1000px){
+      .cards{
+          display: inline;
+  
+      }
+  
+      .cardprod{
+          display: block;
+          margin: auto;
+          margin-bottom: 30px;
+      }
+  }
+  
+  
+  a{
+      color: var(--color);
+      display: block;
+    margin-top: 10px;
+  }
+  
+  .card{
+      border: 1px solid var(--color2);
+      border-radius: 20px;
+      width: 300px;
+      display: block;
+      margin: auto;
+      text-align: center;
+      padding: 15px;
+      margin-bottom: 100px;
+  
+  }
+  
+  .card div{
+      text-align: start;
+      margin-top: 15px;
+  }
+  
+  .card h4{
+      font-weight: 500;
+      text-decoration: underline 2px solid;
+      text-underline-offset: 5px;
+  }
+  
+  .card div input{
+      text-align: start;
+      width: 280px;
+      border-radius: 50px;
+      height: 30px;
+      margin-top: 15px;
+      padding: 8px;
+  }
+  
+  .card button{
+      margin-top: 15px;
+      width: 300px;
+      border: 2px solid var(--color3);
+      background-color: var(--color3);
+      border-radius: 20px;
+      padding: 15px;
+      color: white;
+      font-weight: bold;
+      transition: 300ms;
+  }
+  
+  .card button:hover{
+      transition: 300ms;
+      margin-top: 15px;
+      width: 300px;
+      border: 2px solid var(--color3);
+      background-color: white;
+      border-radius: 20px;
+      padding: 15px;
+      color: var(--color3);
+      font-weight: bold;
+  }
+      </style>
+</html>

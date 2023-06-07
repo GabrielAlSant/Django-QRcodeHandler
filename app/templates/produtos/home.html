@@ -28,6 +28,24 @@
         </div>
      
          </nav>
+ 
+   
+<h2 class="titledest" style="margin-top: 50px;"></h2>
+
+         <h2 class="titledest" style="margin-top: 50px;">Produtos No Carrinho, Valor atual: R${{valor.preco__sum }}</h2>
+         <section class="cards">
+             {% for produtocarrinho in produtosCarrinho %}
+             <div class="cardprod">
+                 <img src="{{produtocarrinho.img}}">
+                 <div class="nomeprod">{{produtocarrinho.id}}, {{produtocarrinho.nome}}</div>
+                 <div class="precoprod">{{produtocarrinho.preco}}</div>
+                 <form method="post" action="{% url 'excluir_produtoCarrinho' produtocarrinho.id %}">
+                     {% csrf_token %}
+                 <button class="botcomprar">Excluir</button>
+                 </form>
+             </div>
+             {% endfor %}
+         </section>
 
 
 
@@ -36,12 +54,19 @@
 <section class="cards">
     {% for produto in produtos %}
     <div class="cardprod">
+        <form method="post" action="{% url 'excluir_produto' produto.id %}">
+            {% csrf_token %}
+        <button style="float:right; margin-right: 45px;">🗑️</button>
+        </form>
         <img src="{{produto.img}}">
         <div class="nomeprod">{{produto.id}}, {{produto.nome}}</div>
         <div class="precoprod">{{produto.preco}}</div>
-        <form method="post" action="{% url 'excluir_produto' produto.id %}">
+        <form method="post" action="{% url 'listagem_produtosCarrinho'  %}">
             {% csrf_token %}
-        <button class="botcomprar">Excluir</button>
+            <input type="hidden" value="{{produto.nome}}" name="nome">
+            <input type="hidden" value="{{produto.preco}}" name="preco">
+            <input type="hidden" value="{{produto.img}}" name="img">
+        <button class="botcomprar">Carrinho</button>
         </form>
     </div>
     {% endfor %}
@@ -333,7 +358,7 @@ transition: 300ms;
       padding: 15px;
       margin: 10px;
       width: 200px;
-      height: 300px;
+      height: 320px;
       box-shadow: 10px 5px 5px var(--color5);
   }
   

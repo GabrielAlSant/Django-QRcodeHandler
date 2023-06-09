@@ -28,8 +28,8 @@
         </div>
      
          </nav>
- 
-   
+
+
 <h2 class="titledest" style="margin-top: 50px;"></h2>
 
          <h2 class="titledest" style="margin-top: 50px;">Produtos No Carrinho, Valor atual: R${{valor.preco__sum }}</h2>
@@ -39,6 +39,7 @@
                  <img src="{{produtocarrinho.img}}">
                  <div class="nomeprod">{{produtocarrinho.id}}, {{produtocarrinho.nome}}</div>
                  <div class="precoprod">{{produtocarrinho.preco}}</div>
+                 
                  <form method="post" action="{% url 'excluir_produtoCarrinho' produtocarrinho.id %}">
                      {% csrf_token %}
                  <button class="botcomprar">Excluir</button>
@@ -58,14 +59,14 @@
             {% csrf_token %}
         <button style="float:right; margin-right: 45px;">🗑️</button>
         </form>
-        <img src="{{produto.img}}">
+        <img src="{{produto.url}}">
         <div class="nomeprod">{{produto.id}}, {{produto.nome}}</div>
         <div class="precoprod">{{produto.preco}}</div>
         <form method="post" action="{% url 'listagem_produtosCarrinho'  %}">
             {% csrf_token %}
             <input type="hidden" value="{{produto.nome}}" name="nome">
             <input type="hidden" value="{{produto.preco}}" name="preco">
-            <input type="hidden" value="{{produto.img}}" name="img">
+            <input type="hidden" value="{{produto.url}}" name="img">
         <button class="botcomprar">Carrinho</button>
         </form>
     </div>
@@ -87,12 +88,11 @@
     <div>
         <div>Preço</div>
         <input type="text" name="preco">
-        <div>Imagem</div>
-        <input type="text" name="img">
+        <div>Url</div>
+        <input type="text" name="url">
     </div>
 
-    <button>Logar</button>
-    <a href="cad.html" >Não tenho uma conta</a>
+    <button>Adicionar</button>
 </div>
 </form>
 

@@ -2,6 +2,11 @@ from django.shortcuts import render, redirect
 from .models import Produto
 from .models import ProdutoCarrinho
 from django.db.models import Sum
+from django.http import HttpResponse
+from io import BytesIO
+from django.core.files.base import ContentFile
+from django.shortcuts import render
+
 
 def home(request):
     produtos = {
@@ -12,19 +17,25 @@ def home(request):
 
     return render(request, 'produtos/home.html', produtos)
 
+
+
 def produtos(request):
-    novo_produto = Produto()
-    novo_produto.nome = request.POST.get("nome")
-    novo_produto.preco = request.POST.get("preco")
-    novo_produto.img = request.POST.get("img")
-    novo_produto.save()
+     novo_produto = Produto()
+     novo_produto.nome = request.POST.get('nome')
+     novo_produto.preco = request.POST.get('preco')
+     novo_produto.url = request.POST.get('url')
+     novo_produto.save()
+     
     
-    produtos = {
+     produtos = {
         'produtos': Produto.objects.all(), 
         'produtosCarrinho': ProdutoCarrinho.objects.all() 
     }
-    return redirect('home')
+     return redirect('home')
 
+
+
+ 
 def excluirproduto(request, id ):
   
   produto = Produto.objects.get(id=id)
@@ -91,6 +102,15 @@ def filtroprodutoCarrinho(request):
     }
    
    return render(request, 'produtos/home.html', produtos)
+
+def scan_qrcode(request):
+    if request.method == 'POST':
+        qrcode = request.POST.get('qrcode')
+        print(qrcode)
+        return HttpResponse('OK')
+    else:
+        return render(request, 'base.html')
+
 
 
 

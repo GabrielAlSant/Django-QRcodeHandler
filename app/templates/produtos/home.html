@@ -28,7 +28,10 @@
         </div>
      
          </nav>
-
+         <form action="{% url 'read_qr_code' %}" method="post">
+            {% csrf_token %}
+            <button>Camera</button>
+        </form>
 
 <h2 class="titledest" style="margin-top: 50px;"></h2>
 

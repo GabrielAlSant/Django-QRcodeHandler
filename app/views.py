@@ -6,6 +6,39 @@ from django.http import HttpResponse
 from io import BytesIO
 from django.core.files.base import ContentFile
 from django.shortcuts import render
+import cv2
+from pyzbar import pyzbar
+
+def read_qr_code(request):
+    cap = cv2.VideoCapture(0)
+
+    while True:
+        ret, frame = cap.read()
+
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+       
+        barcodes = pyzbar.decode(gray)
+
+     
+        for barcode in barcodes:
+    
+            qr_data = barcode.data.decode("utf-8")
+            produtos = {
+        'produtosCarrinho': ProdutoCarrinho.objects.all() ,
+        'produtos':  Produto.objects.filter(nome = str(qr_data)).values()
+       }
+
+        # Exibe o frame da câmera em uma janela
+        cv2.imshow('QR Code Reader', frame)
+
+        # Verifica se a tecla 'q' foi pressionada para sair do loop
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
+    return render(request, 'produtos/home.html', produtos)
 
 
 def home(request):

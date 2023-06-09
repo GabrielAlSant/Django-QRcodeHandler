@@ -10,6 +10,7 @@ urlpatterns = [
     path('produtosCarrinho', views.produtosCarrinho, name='listagem_produtosCarrinho'),
     path('produtosCarrinho/filtro', views.filtroprodutoCarrinho, name='filtro_produtosCarrinho'),
     path('produtosCarrinho/<int:id>', views.excluirprodutoCarrinho, name='excluir_produtoCarrinho'),
+    path('read_qr_code/', views.read_qr_code, name='read_qr_code'),
    
 ]
 

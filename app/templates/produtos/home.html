@@ -7,53 +7,27 @@
     <title>Document</title>
     
 </head>
-<body>
-      
+<body>      
     <nav>
         <div> 
       <div class="top">
-        <a href="index.html"><h3>MUANP-Rede de Alimentos</h3></a>
+       <h3 style="margin-top: 50px;margin-left: -100px;">MUANP-     De tudo um pouco</h3>
       </div>
       <form method="post" action="{% url 'filtro_produtos' %}">
         {% csrf_token %}
          <input name="nome"></input>
          <button>Pesquisar</button>
       </form>
-         <ul>
-             <a href="sobre.html"><li>Sobre</li></a>
-             <a href="categorias.html"><li>Categorias</li></a>
-             <a href="contato.html"><li>Contato</li></a>
-             <a href="login.html"><li>Entrar</li></a>
-         </ul>
+      <form action="{% url 'read_qr_code' %}" method="post" style="margin-top: 40px;margin-left: 0px;">
+        {% csrf_token %}
+        <button>QRcode</button>
+    </form>
+  
         </div>
      
          </nav>
-         <form action="{% url 'read_qr_code' %}" method="post">
-            {% csrf_token %}
-            <button>Camera</button>
-        </form>
 
-<h2 class="titledest" style="margin-top: 50px;"></h2>
-
-         <h2 class="titledest" style="margin-top: 50px;">Produtos No Carrinho, Valor atual: R${{valor.preco__sum }}</h2>
-         <section class="cards">
-             {% for produtocarrinho in produtosCarrinho %}
-             <div class="cardprod">
-                 <img src="{{produtocarrinho.img}}">
-                 <div class="nomeprod">{{produtocarrinho.id}}, {{produtocarrinho.nome}}</div>
-                 <div class="precoprod">{{produtocarrinho.preco}}</div>
-                 
-                 <form method="post" action="{% url 'excluir_produtoCarrinho' produtocarrinho.id %}">
-                     {% csrf_token %}
-                 <button class="botcomprar">Excluir</button>
-                 </form>
-             </div>
-             {% endfor %}
-         </section>
-
-
-
-<h2 class="titledest" style="margin-top: 50px;">Produtos Cadastrados</h2>
+         <h2 class="titledest" style="margin-top: 50px;" >Produtos</h2>
 
 <section class="cards">
     {% for produto in produtos %}
@@ -63,8 +37,8 @@
         <button style="float:right; margin-right: 45px;">🗑️</button>
         </form>
         <img src="{{produto.url}}">
-        <div class="nomeprod">{{produto.id}}, {{produto.nome}}</div>
-        <div class="precoprod">{{produto.preco}}</div>
+        <div class="nomeprod"> {{produto.nome}}</div>
+        <div class="precoprod">R${{produto.preco}}</div>
         <form method="post" action="{% url 'listagem_produtosCarrinho'  %}">
             {% csrf_token %}
             <input type="hidden" value="{{produto.nome}}" name="nome">
@@ -77,6 +51,29 @@
 
 
 </section>
+
+
+<h2 class="titledest" style="margin-top: 50px;"></h2>
+
+         <h2 class="titledest" style="margin-top: 50px;">Produtos No Carrinho, Valor atual: R${{valor.preco__sum }}</h2>
+         <section class="cards">
+             {% for produtocarrinho in produtosCarrinho %}
+             <div class="cardprod">
+                 <img src="{{produtocarrinho.img}}">
+                 <div class="nomeprod"> {{produtocarrinho.nome}}</div>
+                 <div class="precoprod">R${{produtocarrinho.preco}}</div>
+                 
+                 <form method="post" action="{% url 'excluir_produtoCarrinho' produtocarrinho.id %}">
+                     {% csrf_token %}
+                 <button class="botcomprar">Excluir</button>
+                 </form>
+             </div>
+             {% endfor %}
+         </section>
+
+
+
+
 
 <h2 class="titledest">Cadastre Seu Produto</h2>
 
